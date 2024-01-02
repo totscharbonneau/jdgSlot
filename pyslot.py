@@ -1,5 +1,5 @@
 import pygame
-import random, os.path
+import random, os.path, time
 from pygame.locals import *
 main_dir = os.path.split(os.path.abspath(__file__))[0]
 
@@ -20,33 +20,60 @@ def load_image(file):
         raise SystemExit('Could not load image "%s" %s'%(file, pygame.get_error()))
     return surface.convert()
 
-pygame.init()
+def roll():
+    i = 0
+    result = spin_slot_machine()
+    while i < 40:
+        screen.blit(img_list[(i + 1) % 6], (0, verticalplace))
+        screen.blit(img_list[(i - 2) % 6], (longueur/2-dim_image/2, verticalplace))
+        screen.blit(img_list[(i +2) % 6], (longueur-dim_image, verticalplace))
+        i += 1
+        pygame.display.flip()
+        time.sleep(0.1)
+    screen.blit(result[0], (0, verticalplace))
+    screen.blit(result[1], (longueur/2-dim_image/2, verticalplace))
+    screen.blit(result[2], (longueur-dim_image, verticalplace))
+        
+def spin_slot_machine():
+    # Spin the slot machine
+    result = [random.choice(img_list) for _ in range(3)]
+    return result
 
+pygame.init()
 
 
 winstyle = 0  # |FULLSCREEN
 bestdepth = pygame.display.mode_ok(SCREENRECT.size, winstyle, 32)
 screen = pygame.display.set_mode(SCREENRECT.size, winstyle, bestdepth)
 
-imm = load_image('7.png')
+img_7 = load_image('7.png')
+img_bean = load_image('bean.png')
+img_icebath = load_image('icebath.png')
+img_jdg = load_image('jdg.png')
+img_loup = load_image('loup.png')
+img_sherb = load_image('sherb.png')
+
+img_list = [img_7,img_bean,img_icebath,img_jdg,img_loup,img_sherb]
 
 verticalplace = hauteur/2 - dim_image/2
 
 running = True
-while running:
 
-    # Did the user click the window close button?
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+roll()
+# while running:
 
-    # Fill the background with white
-    screen.blit(imm, (0, verticalplace))
-    screen.blit(imm, (longueur/2-dim_image/2, verticalplace))
-    screen.blit(imm, (longueur-dim_image, verticalplace))
+#     # Did the user click the window close button?
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             running = False
 
-    # Flip the display
-    pygame.display.flip()
+#     # Fill the background with white
+#     screen.blit(imm, (0, verticalplace))
+#     screen.blit(imm, (longueur/2-dim_image/2, verticalplace))
+#     screen.blit(imm, (longueur-dim_image, verticalplace))
+
+#     # Flip the display
+#     pygame.display.flip()
 
 # Done! Time to quit.
 pygame.quit()
