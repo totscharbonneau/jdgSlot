@@ -1,5 +1,5 @@
 import pygame
-import random, os.path, time
+import random, os.path, time, sys
 from pygame.locals import *
 main_dir = os.path.split(os.path.abspath(__file__))[0]
 
@@ -59,9 +59,25 @@ verticalplace = hauteur/2 - dim_image/2
 
 running = True
 
-roll()
-# while running:
+# roll()
 
+while running:
+    # input("Press Enter to spin. Press 'q' to quit.\n")
+    # roll()
+
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+         
+        # checking if keydown event happened or not
+        if event.type == pygame.KEYDOWN:
+            roll()
+            time.sleep(0.5)
+            # if keydown event happened
+            # than printing a string to output
+            print("A key has been pressed")
 #     # Did the user click the window close button?
 #     for event in pygame.event.get():
 #         if event.type == pygame.QUIT:
