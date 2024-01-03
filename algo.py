@@ -48,4 +48,4 @@ def play_slot_machine():
         if choice != 'y':
             break
 
-play_slot_machine()
+print(spin_slot_machine())

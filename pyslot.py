@@ -24,16 +24,18 @@ def roll():
     i = 0
     result = spin_slot_machine()
     while i < 40:
-        screen.blit(img_list[(i + 1) % 6], (0, verticalplace))
-        screen.blit(img_list[(i - 2) % 6], (longueur/2-dim_image/2, verticalplace))
-        screen.blit(img_list[(i +2) % 6], (longueur-dim_image, verticalplace))
+        screen.blit(img_list[(i + 1) % 7], (0, verticalplace))
+        screen.blit(img_list[(i - 2) % 7], (longueur/2-dim_image/2, verticalplace))
+        screen.blit(img_list[(i +2) % 7], (longueur-dim_image, verticalplace))
         i += 1
         pygame.display.flip()
         time.sleep(0.1)
+
     screen.blit(result[0], (0, verticalplace))
     screen.blit(result[1], (longueur/2-dim_image/2, verticalplace))
     screen.blit(result[2], (longueur-dim_image, verticalplace))
-        
+    pygame.display.flip()
+
 def spin_slot_machine():
     # Spin the slot machine
     result = [random.choice(img_list) for _ in range(3)]
@@ -52,14 +54,14 @@ img_icebath = load_image('icebath.png')
 img_jdg = load_image('jdg.png')
 img_loup = load_image('loup.png')
 img_sherb = load_image('sherb.png')
+img_singe = load_image('singe.png')
 
-img_list = [img_7,img_bean,img_icebath,img_jdg,img_loup,img_sherb]
+img_list = [img_7,img_bean,img_icebath,img_jdg,img_loup,img_sherb,img_singe]
 
 verticalplace = hauteur/2 - dim_image/2
 
 running = True
 
-# roll()
 
 while running:
     # input("Press Enter to spin. Press 'q' to quit.\n")
